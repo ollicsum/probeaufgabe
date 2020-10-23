@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: probeaufgabe.service.impl.ProbeaufgabeServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.59 s - in probeaufgabe.service.impl.ProbeaufgabeServiceImplTest

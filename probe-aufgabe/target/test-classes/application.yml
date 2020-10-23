@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;MODE=MYSQL;
+
+  application:
+    name: 'probe-aufgabe'
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: true 
+        order_inserts: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        security: ERROR
+        web: ERROR    
+      hibernate: ERROR 
+
+  file: logs/

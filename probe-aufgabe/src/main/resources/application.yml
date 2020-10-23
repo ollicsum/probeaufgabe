@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: '@datasource.url@?serverTimezone=Europe/Berlin&useLegacyDatetimeCode=false'
+    username: dev
+    password: dev
+
+  application:
+    name: 'probe-aufgabe'
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: true 
+        order_inserts: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    #  ddl-auto: update
+      
+
+server:
+  port: '@server.port@'
+  
+management:
+  server:
+    port: '@management.server.port@'
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        security: ERROR
+        web: ERROR    
+      hibernate: ERROR 
+        #SQL: DEBUG
+        #type: TRACE
+
+  file: logs/

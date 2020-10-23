@@ -1,0 +1,43 @@
+version: '3'
+services:
+    composer:
+        image: "composer"
+        volumes:
+            - "./web/app:/app"
+        command: install
+    myadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        ports:
+            - "8080:80"
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=${MYSQL_HOST}
+        restart: always
+        depends_on:
+            - mysqldb
+    mysqldb:
+        image: mysql:${MYSQL_VERSION}
+        container_name: ${MYSQL_HOST}
+        restart: always
+        env_file:
+            - ".env"
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - TZ=Europe/Berlin
+        ports:
+            - "8989:3306"
+        volumes:
+            - "./data/db/mysql:/var/lib/mysql"
+            - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+    probeaufgabe:
+        build: "./probe-aufgabe"
+        image: probeaufgabe
+        ports:
+            - "8500:8500"
+        restart: on-failure
+        depends_on:
+            - mysqldb
